@@ -1,0 +1,35 @@
+import {ModuleWithProviders} from '@angular/core';
+import {Route, RouterModule} from '@angular/router';
+
+import {AllTodosComponent} from './components/all-todos/all-todos.component';
+import {SelectTodoComponent} from './components/select-todo/select-todo.component';
+import {TodoListComponent} from './todo-list.component';
+
+
+const routes: Route[] = [
+  {
+    path: '',
+    component: TodoListComponent,
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'all-todos'
+      },
+      {
+        path: 'all-todos',
+        component: AllTodosComponent
+      },
+      {
+        path: 'select-todo',
+        component: SelectTodoComponent
+      },
+      {
+        path: '**',
+        redirectTo: 'all-todos'
+      },
+    ]
+  }
+];
+
+export const todoListRouting: ModuleWithProviders = RouterModule.forChild(routes);

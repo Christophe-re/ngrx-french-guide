@@ -1,12 +1,11 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { StoreModule} from '@ngrx/store';
+import {NgModule} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {BrowserModule} from '@angular/platform-browser';
+import {StoreModule} from '@ngrx/store';
 
-import { getReducers, REDUCER_TOKEN } from './store';
-
-
-import { AppComponent } from './app.component';
-
+import {AppComponent} from './app.component';
+import {appRouting} from './app.routing';
+import {getReducers, REDUCER_TOKEN} from './store';
 
 @NgModule({
   declarations: [
@@ -14,7 +13,10 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    StoreModule.forRoot(REDUCER_TOKEN)
+    StoreModule.forRoot(REDUCER_TOKEN),
+    ReactiveFormsModule,
+    FormsModule,
+    appRouting
   ],
   providers: [
     {
@@ -24,5 +26,5 @@ import { AppComponent } from './app.component';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
 
