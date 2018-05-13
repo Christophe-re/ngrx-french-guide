@@ -1,12 +1,12 @@
-import {todosMock} from '../../mocks/todo-list-data';
-import {TodoListState} from '../../models/todo';
 import {TodoListModule} from '../actions/todo-list.action';
+import {TodoListState} from '../../models/todo';
+import {todosMock} from '../../mocks/todo-list-data';
 
 const initialState: TodoListState = {
     data: [],
     loading: false,
     loaded: false,
-    selectTodo: undefined
+    selectedTodo: undefined
 };
 
 export function todosReducer(
@@ -16,16 +16,37 @@ export function todosReducer(
 
     switch (action.type) {
 
+        // case TodoListModule.ActionTypes.INIT_TODOS:
+        //     const todos = state.loaded ? state.data : todosMock;
+        //     return {
+        //         ...state,
+        //         loaded: true,
+        //         data: [
+        //             ...todos,
+        //         ]
+        //     };
         case TodoListModule.ActionTypes.INIT_TODOS:
             return {
                 ...state,
                 data: [
-                    ...todosMock
+                    ...action.payload
                 ]
             };
 
-        case TodoListModule.ActionTypes.CREATE_TODO:
+        case TodoListModule.ActionTypes.SELECT_TODO:
+            return {
+                ...state,
+                selectedTodo: action.payload
+            };
 
+        case TodoListModule.ActionTypes.UPDATE_TODO:
+            return {
+                ...state,
+                data: state.data
+                    .map(todo => action.payload.id === todo.id ? action.payload : todo)
+            };
+
+        case TodoListModule.ActionTypes.CREATE_TODO:
             return {
                 ...state,
                 data: [
@@ -35,26 +56,13 @@ export function todosReducer(
             };
 
         case TodoListModule.ActionTypes.DELETE_TODO:
-
             return {
                 ...state,
                 data: state.data.filter(todo => todo.id !== action.payload)
-            };
-        case TodoListModule.ActionTypes.SELECT_TODO:
-            return {
-                ...state,
-                selectTodo: action.payload
-            };
-
-        case TodoListModule.ActionTypes.UPDATE_TODO:
-            return {
-                ...state,
-                data: state.data
-                    .map(todo => action.payload.id === todo.id ? action.payload : todo)
-
             };
 
         default:
             return state;
     }
 }
+

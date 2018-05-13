@@ -17,6 +17,12 @@
     ],
     "baseUrl": "./src",
     "paths": {
+      "@Services/*": [
+        "app/services/*"
+      ],
+      "@Env": [
+        "environments/environment.ts"
+      ],
       "@Models/*": [
         "app/models/*"
       ],

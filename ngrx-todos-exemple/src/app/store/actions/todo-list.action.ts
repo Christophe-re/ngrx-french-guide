@@ -12,6 +12,7 @@ export namespace TodoListModule {
 
     export class InitTodos {
         readonly type = ActionTypes.INIT_TODOS;
+        constructor(public payload: Todo[]) {}
     }
     export class CreateTodo {
         readonly type = ActionTypes.CREATE_TODO;
@@ -24,12 +25,17 @@ export namespace TodoListModule {
     }
     export class SelectTodo {
         readonly type = ActionTypes.SELECT_TODO;
-        constructor(payload: Todo) {}
+        constructor(public payload: Todo) {}
     }
 
     export class UpdateTodo {
         readonly type = ActionTypes.UPDATE_TODO;
-        constructor(payload: Todo) {}
+        constructor(public payload: Todo) {}
+    }
 
-    export type Actions = InitTodos | CreateTodo | DeleteTodo | SelectTodo | UpdateTodo;
+    export type Actions = InitTodos
+        | SelectTodo
+        | CreateTodo
+        | UpdateTodo
+        | DeleteTodo;
 }

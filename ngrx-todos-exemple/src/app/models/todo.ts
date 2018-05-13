@@ -9,5 +9,5 @@ export interface TodoListState {
     data: Todo[];
     loading: boolean;
     loaded: boolean;
-    selectTodo: Todo;
+    selectedTodo: Todo;
 }
