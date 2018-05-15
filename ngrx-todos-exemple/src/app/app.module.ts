@@ -1,17 +1,16 @@
+import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
+import {EffectsModule} from '@ngrx/effects';
 import {StoreModule} from '@ngrx/store';
-
-import {AppComponent} from './app.component';
-import {appRouting} from './app.routing';
-import {getReducers, REDUCER_TOKEN} from './store';
-
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from 'environments/environment';
-
-import {HttpClientModule} from '@angular/common/http';
+import {IsTodosLoadedGuard} from './guards/is-todos-loaded/is-todos-loaded.guard';
+import {AppComponent} from './app.component';
+import {appRouting} from './app.routing';
 import {TodoListService} from './services/todo-list.service';
+import {appEffects, getReducers, REDUCER_TOKEN} from './store';
 
 @NgModule({
   declarations: [
@@ -28,14 +27,16 @@ import {TodoListService} from './services/todo-list.service';
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production // Restrict extension to log-only mode
     }),
-    HttpClientModule
+    HttpClientModule,
+    EffectsModule.forRoot(appEffects),
   ],
   providers: [
     {
       provide: REDUCER_TOKEN,
       useFactory: getReducers,
     },
-    TodoListService
+    TodoListService,
+    IsTodosLoadedGuard
   ],
   bootstrap: [AppComponent]
 })

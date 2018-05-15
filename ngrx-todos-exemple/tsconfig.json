@@ -17,6 +17,9 @@
     ],
     "baseUrl": "./src",
     "paths": {
+      "@Effects/*": [
+        "app/store/effects/*"
+      ],
       "@Services/*": [
         "app/services/*"
       ],

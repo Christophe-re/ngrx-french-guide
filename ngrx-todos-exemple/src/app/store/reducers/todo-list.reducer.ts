@@ -1,6 +1,5 @@
-import {TodoListModule} from '../actions/todo-list.action';
 import {TodoListState} from '../../models/todo';
-import {todosMock} from '../../mocks/todo-list-data';
+import {TodoListModule} from '../actions/todo-list.action';
 
 const initialState: TodoListState = {
     data: [],
@@ -25,12 +24,36 @@ export function todosReducer(
         //             ...todos,
         //         ]
         //     };
-        case TodoListModule.ActionTypes.INIT_TODOS:
+        // case TodoListModule.ActionTypes.INIT_TODOS:
+        //     return {
+        //         ...state,
+        //         data: [
+        //             ...action.payload
+        //         ]
+        //     };
+
+        case TodoListModule.ActionTypes.LOAD_INIT_TODOS:
+            // Passe le loading a true
             return {
                 ...state,
-                data: [
-                    ...action.payload
-                ]
+                loading: true
+            };
+
+        case TodoListModule.ActionTypes.SUCCESS_INIT_TODOS:
+            // Bind state.data avec les todos du server
+            // Passe le loaded a true et le loading a false
+            return {
+                ...state,
+                loading: false,
+                loaded: true,
+                data: action.payload
+            };
+
+        case TodoListModule.ActionTypes.ERROR_INIT_TODOS:
+            // Error rend le loading a false
+            return {
+                ...state,
+                loading: false
             };
 
         case TodoListModule.ActionTypes.SELECT_TODO:
@@ -55,12 +78,23 @@ export function todosReducer(
                 ]
             };
 
-        case TodoListModule.ActionTypes.DELETE_TODO:
+        case TodoListModule.ActionTypes.LOAD_DELETE_TODO:
+            return {
+                ...state,
+                loading: true
+            };
+
+        case TodoListModule.ActionTypes.SUCCESS_DELETE_TODO:
             return {
                 ...state,
                 data: state.data.filter(todo => todo.id !== action.payload)
             };
 
+        case TodoListModule.ActionTypes.ERROR_DELETE_TODO:
+            return {
+                ...state,
+                loading: false
+            };
         default:
             return state;
     }

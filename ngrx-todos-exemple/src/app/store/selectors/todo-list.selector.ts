@@ -2,6 +2,7 @@ import {createSelector} from '@ngrx/store';
 
 import {AppState} from '../../store';
 
+
 // La première fonction amène vers le state todos
 export const selectTodoListState$ = (state: AppState) => state.todos;
 
@@ -10,3 +11,9 @@ export const selectTodos$ = createSelector(selectTodoListState$, (todos) => todo
 
 export const selectTodoSelected$ =
   createSelector(selectTodoListState$, (todos) => todos.selectedTodo);
+
+export const selectTodosLoading$ =
+  createSelector(selectTodoListState$, (todos) => todos.loading);
+
+export const selectTodosLoaded$ =
+  createSelector(selectTodoListState$, (todos) => todos.loaded);
